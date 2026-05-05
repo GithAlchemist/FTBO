@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Financial Tool for Business Owners – FTBO</title>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Financial Tool for Business Owners – Gérez votre argent, enfin vraiment.">
+<meta property="og:description" content="Un outil de gestion financière conçu pour les business owners togolais, avec un accompagnement humain.">
+<meta property="og:image" content="https://ftbo.vercel.app/og-image.png">
+<meta property="og:url" content="https://ftbo.vercel.app">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+:root{--green:#1A3C2E;--green2:#2D6A4F;--green3:#3D8B65;--gold:#C9952A;--gold-lt:#F0C96A;--cream:#FAF7F2;--bg:#F2EFE9;--white:#FFFFFF;--text:#1C1C1C;--muted:#7A7670;--border:#E0D9CE;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;transition:all .3s;}
+.navbar.scrolled{background:rgba(15,35,24,.95);backdrop-filter:blur(16px);box-shadow:0 2px 20px rgba(0,0,0,.2);}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nav-logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--gold),var(--gold-lt));border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:15px;}
+.nav-logo-text{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:white;}
+.nav-logo-text span{color:var(--gold-lt);}
+.nav-links{display:flex;align-items:center;gap:28px;}
+.nav-link{font-size:13px;font-weight:500;color:rgba(255,255,255,.65);text-decoration:none;transition:color .15s;}
+.nav-link:hover{color:white;}
+.nav-cta{background:linear-gradient(135deg,var(--gold),#b5821f);color:white;font-size:13px;font-weight:600;padding:9px 22px;border-radius:7px;text-decoration:none;box-shadow:0 3px 12px rgba(201,149,42,.35);transition:all .2s;}
+.nav-cta:hover{transform:translateY(-1px);}
+
+/* HERO */
+.hero{min-height:100vh;background:linear-gradient(135deg,#0D2318 0%,#1A3C2E 50%,#0F2A1E 100%);position:relative;overflow:hidden;display:flex;align-items:center;padding:100px 5% 80px;}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.3;animation:float 8s ease-in-out infinite;}
+.hero-orb-1{width:600px;height:600px;background:radial-gradient(circle,#C9952A,transparent);top:-200px;right:-100px;}
+.hero-orb-2{width:400px;height:400px;background:radial-gradient(circle,#2D6A4F,transparent);bottom:-100px;left:-50px;animation-delay:-4s;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:60px 60px;}
+@keyframes float{0%,100%{transform:translate(0,0);}33%{transform:translate(20px,-30px);}66%{transform:translate(-15px,20px);}}
+.hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1200px;margin:0 auto;width:100%;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(201,149,42,.15);border:1px solid rgba(201,149,42,.3);color:var(--gold-lt);font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:6px 14px;border-radius:20px;margin-bottom:28px;}
+.hero-title{font-family:'Syne',sans-serif;font-size:56px;font-weight:800;color:white;line-height:1.05;margin-bottom:20px;}
+.hero-title em{font-style:normal;background:linear-gradient(135deg,var(--gold-lt),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:17px;color:rgba(255,255,255,.6);line-height:1.7;max-width:440px;margin-bottom:36px;}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:48px;}
+.btn-hp{display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;padding:14px 28px;border-radius:9px;text-decoration:none;transition:all .2s;}
+.btn-hp.primary{background:linear-gradient(135deg,var(--gold),#b5821f);color:white;box-shadow:0 6px 24px rgba(201,149,42,.4);}
+.btn-hp.primary:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(201,149,42,.5);}
+.btn-hp.outline{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.85);}
+.btn-hp.outline:hover{background:rgba(255,255,255,.12);}
+.hero-stats{display:flex;gap:32px;}
+.hero-stat .num{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:white;}
+.hero-stat .num span{color:var(--gold-lt);}
+.hero-stat .lbl{font-size:12px;color:rgba(255,255,255,.45);margin-top:2px;}
+
+/* MOCKUP */
+.mockup-card{background:rgba(255,255,255,.07);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:28px;width:100%;max-width:380px;box-shadow:0 32px 80px rgba(0,0,0,.3);}
+.mockup-header{display:flex;align-items:center;gap:10px;margin-bottom:20px;}
+.mockup-avatar{width:36px;height:36px;background:linear-gradient(135deg,var(--green2),var(--green3));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;}
+.mockup-info .name{font-size:13px;font-weight:600;color:white;}
+.mockup-info .role{font-size:11px;color:rgba(255,255,255,.4);}
+.mockup-metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+.metric{background:rgba(255,255,255,.06);border-radius:10px;padding:14px;}
+.metric .mlabel{font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:5px;}
+.metric .mval{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:white;}
+.metric .msub{font-size:10px;color:rgba(255,255,255,.35);margin-top:2px;}
+.bar-label{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:10px;}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.bar-name{font-size:11px;color:rgba(255,255,255,.55);width:60px;flex-shrink:0;}
+.bar-track{flex:1;height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:3px;}
+.bar-val{font-size:11px;font-weight:600;color:rgba(255,255,255,.6);width:48px;text-align:right;flex-shrink:0;}
+.mockup-badge{margin-top:16px;background:rgba(110,203,138,.12);border:1px solid rgba(110,203,138,.25);border-radius:8px;padding:10px 14px;display:flex;align-items:center;gap:8px;font-size:12px;color:#6ECB8A;}
+
+/* SECTIONS */
+.section{padding:80px 5%;}
+.section.alt{background:var(--cream);}
+.section-inner{max-width:1100px;margin:0 auto;}
+.section-eyebrow{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.section-title{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--green);line-height:1.2;margin-bottom:16px;}
+.section-sub{font-size:16px;color:var(--muted);line-height:1.7;max-width:520px;margin-bottom:48px;}
+
+/* PROBLEM */
+.problem{background:linear-gradient(135deg,#FFF8E8,#FFF4D4);border-left:5px solid var(--gold);padding:24px 5%;}
+.problem p{font-size:15px;color:#5A4010;line-height:1.7;max-width:900px;margin:0 auto;}
+.problem strong{color:#3A2800;}
+
+/* FEATURES */
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.feature-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:24px;transition:all .2s;position:relative;overflow:hidden;}
+.feature-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--green2),var(--green3));opacity:0;transition:opacity .2s;}
+.feature-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.08);}
+.feature-card:hover::before{opacity:1;}
+.feat-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--green2),var(--green));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;}
+.feat-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--green);margin-bottom:6px;}
+.feat-desc{font-size:13px;color:var(--muted);line-height:1.6;}
+
+/* INCLUDES */
+.includes-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:40px;}
+.include-item{display:flex;align-items:flex-start;gap:12px;padding:16px;background:var(--white);border-radius:10px;border:1px solid var(--border);}
+.include-check{width:22px;height:22px;background:var(--green2);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:11px;flex-shrink:0;margin-top:1px;}
+.include-text{font-size:13.5px;color:var(--text);line-height:1.5;}
+.guarantee{background:linear-gradient(135deg,var(--green),var(--green2));border-radius:16px;padding:36px 40px;display:flex;align-items:flex-start;gap:24px;box-shadow:0 12px 40px rgba(26,60,46,.2);}
+.guarantee-icon{font-size:40px;flex-shrink:0;}
+.guarantee h4{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:white;margin-bottom:10px;}
+.guarantee p{font-size:14px;color:rgba(255,255,255,.7);line-height:1.7;}
+
+/* PRICING */
+.billing-toggle{display:inline-flex;gap:6px;background:#EEE9E0;border-radius:10px;padding:5px;margin-bottom:32px;}
+.billing-btn{padding:9px 20px;border-radius:7px;border:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;background:transparent;color:var(--muted);}
+.billing-btn.active{background:var(--green);color:white;box-shadow:0 2px 8px rgba(26,60,46,.2);}
+.billing-note{background:#FFF8E8;border-left:3px solid var(--gold);padding:12px 18px;border-radius:6px;font-size:13px;color:#5A4010;margin-bottom:24px;display:none;}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.plan{border:1.5px solid var(--border);border-radius:16px;padding:28px 24px;background:var(--white);position:relative;text-align:center;transition:all .2s;}
+.plan:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,.08);}
+.plan.featured{border-color:var(--green2);background:linear-gradient(135deg,var(--green),var(--green2));color:white;box-shadow:0 12px 40px rgba(26,60,46,.3);}
+.plan-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--gold),#b5821f);color:white;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:12px;white-space:nowrap;box-shadow:0 3px 10px rgba(201,149,42,.4);}
+.plan-name{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.plan.featured .plan-name{color:var(--gold-lt);}
+.plan-price{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--green);line-height:1;}
+.plan.featured .plan-price{color:white;}
+.plan-currency{font-size:13px;color:var(--muted);margin-top:3px;margin-bottom:18px;}
+.plan.featured .plan-currency{color:rgba(255,255,255,.55);}
+.plan-divider{height:1px;background:var(--border);margin:18px 0;}
+.plan.featured .plan-divider{background:rgba(255,255,255,.15);}
+.plan-feats{text-align:left;margin-bottom:16px;}
+.plan-feat{font-size:12.5px;color:var(--text);display:flex;align-items:flex-start;gap:8px;margin-bottom:10px;line-height:1.4;}
+.plan.featured .plan-feat{color:rgba(255,255,255,.85);}
+.plan-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:5px;}
+.plan.featured .plan-dot{background:var(--gold-lt);}
+.plan-target{font-size:11px;color:var(--muted);font-style:italic;margin-top:12px;}
+.plan.featured .plan-target{color:rgba(255,255,255,.45);}
+.pricing-note{margin-top:20px;font-size:13px;color:var(--muted);text-align:center;line-height:1.7;}
+
+/* STEPS */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;position:relative;}
+.steps::before{content:'';position:absolute;top:26px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,var(--green2),var(--green3));z-index:0;}
+.step{text-align:center;position:relative;z-index:1;}
+.step-num{width:52px;height:52px;background:linear-gradient(135deg,var(--green),var(--green2));color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin:0 auto 16px;box-shadow:0 4px 16px rgba(26,60,46,.25);}
+.step-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--green);margin-bottom:6px;}
+.step-desc{font-size:12.5px;color:var(--muted);line-height:1.6;}
+
+/* FOOTER */
+footer{background:linear-gradient(135deg,#0D2318,#1A3C2E);padding:60px 5% 32px;}
+.footer-inner{max-width:1100px;margin:0 auto;}
+.footer-top{display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;margin-bottom:48px;}
+.footer-logo-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.footer-logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--gold),var(--gold-lt));border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:15px;}
+.footer-logo-text{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:white;}
+.footer-logo-text span{color:var(--gold-lt);}
+.footer-brand p{font-size:13px;color:rgba(255,255,255,.45);line-height:1.7;}
+.footer-col h5{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:white;margin-bottom:14px;}
+.footer-col a{display:block;font-size:13px;color:rgba(255,255,255,.45);text-decoration:none;margin-bottom:8px;transition:color .15s;}
+.footer-col a:hover{color:rgba(255,255,255,.8);}
+.footer-cta-box{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:24px;text-align:center;}
+.footer-cta-box p{font-size:14px;color:rgba(255,255,255,.6);margin-bottom:16px;line-height:1.6;}
+.footer-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.cta-btn{background:linear-gradient(135deg,var(--gold),#b5821f);color:white;font-size:13px;font-weight:600;padding:12px 24px;border-radius:7px;text-decoration:none;transition:all .2s;}
+.cta-btn:hover{transform:translateY(-1px);}
+.cta-btn.outline{background:transparent;border:1.5px solid rgba(255,255,255,.25);color:rgba(255,255,255,.8);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.footer-bottom p{font-size:11px;color:rgba(255,255,255,.3);}
+.footer-bottom-links{display:flex;gap:20px;}
+.footer-bottom-links a{font-size:11px;color:rgba(255,255,255,.3);text-decoration:none;transition:color .15s;}
+.footer-bottom-links a:hover{color:rgba(255,255,255,.6);}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;}
+  .hero-right{display:none;}
+  .hero-title{font-size:40px;}
+  .features-grid{grid-template-columns:1fr 1fr;}
+  .pricing-grid{grid-template-columns:1fr;}
+  .steps{grid-template-columns:1fr 1fr;}
+  .steps::before{display:none;}
+  .footer-top{grid-template-columns:1fr;}
+  .nav-links{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">📊</div>
+    <div class="nav-logo-text">FTBO <span>Financial</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="#features" class="nav-link">Fonctionnalités</a>
+    <a href="#offre" class="nav-link">L'offre</a>
+    <a href="#pricing" class="nav-link">Tarifs</a>
+    <a href="#comment" class="nav-link">Comment ça marche</a>
+  </div>
+  <a href="https://wa.me/22893127688" class="nav-cta">Nous contacter</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">📊 Financial Tool for Business Owners</div>
+      <h1 class="hero-title">Gérez votre<br>argent.<br><em>Enfin, vraiment.</em></h1>
+      <p class="hero-sub">Un outil de gestion financière conçu pour les business owners togolais — avec un accompagnement humain, pas juste un fichier.</p>
+      <div class="hero-actions">
+        <a href="https://wa.me/22893127688" class="btn-hp primary">💬 Démarrer sur WhatsApp</a>
+        <a href="#pricing" class="btn-hp outline">Voir les tarifs →</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="num">6<span>+</span></div><div class="lbl">modules inclus</div></div>
+        <div class="hero-stat"><div class="num">48<span>h</span></div><div class="lbl">pour être opérationnel</div></div>
+        <div class="hero-stat"><div class="num">100<span>%</span></div><div class="lbl">confidentiel</div></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="mockup-card">
+        <div class="mockup-header">
+          <div class="mockup-avatar">🏪</div>
+          <div class="mockup-info"><div class="name">Boutique Afi</div><div class="role">Tableau de bord · Mai 2026</div></div>
+        </div>
+        <div class="mockup-metrics">
+          <div class="metric"><div class="mlabel">Recettes</div><div class="mval" style="color:#6ECB8A">847k</div><div class="msub">FCFA ce mois</div></div>
+          <div class="metric"><div class="mlabel">Bénéfice net</div><div class="mval" style="color:var(--gold-lt)">312k</div><div class="msub">FCFA ce mois</div></div>
+          <div class="metric"><div class="mlabel">Trésorerie</div><div class="mval">1.2M</div><div class="msub">FCFA en caisse</div></div>
+          <div class="metric"><div class="mlabel">Créances</div><div class="mval" style="color:#FF9999">85k</div><div class="msub">à recouvrer</div></div>
+        </div>
+        <div class="bar-label">Dépenses par catégorie</div>
+        <div class="bar-row"><div class="bar-name">Stock</div><div class="bar-track"><div class="bar-fill" style="width:75%;background:linear-gradient(90deg,#2D6A4F,#3D8B65)"></div></div><div class="bar-val">375k</div></div>
+        <div class="bar-row"><div class="bar-name">Loyer</div><div class="bar-track"><div class="bar-fill" style="width:40%;background:linear-gradient(90deg,#C9952A,#F0C96A)"></div></div><div class="bar-val">80k</div></div>
+        <div class="bar-row"><div class="bar-name">Salaires</div><div class="bar-track"><div class="bar-fill" style="width:55%;background:linear-gradient(90deg,#1a6aa0,#4A9ED6)"></div></div><div class="bar-val">80k</div></div>
+        <div class="mockup-badge">✅ Marge brute : <strong style="margin-left:4px">36.9%</strong> — objectif atteint</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<div class="problem">
+  <p><strong>Le problème :</strong> Beaucoup de commerçants, salons, artisans et prestataires de services à Lomé travaillent dur — mais ne savent pas vraiment combien ils gagnent, ce qu'ils doivent, ni si leur business avance. Le cahier ne suffit plus.</p>
+</div>
+
+<!-- FEATURES -->
+<section class="section alt" id="features">
+  <div class="section-inner">
+    <div class="section-eyebrow">Ce que vous obtenez</div>
+    <h2 class="section-title">Un fichier qui fait le travail à votre place</h2>
+    <p class="section-sub">Six modules complets pour avoir une vision totale de votre business, au quotidien.</p>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feat-icon">📈</div><div class="feat-title">Recettes & Dépenses</div><div class="feat-desc">Suivi quotidien automatisé de tout ce qui entre et sort de votre activité.</div></div>
+      <div class="feature-card"><div class="feat-icon">💰</div><div class="feat-title">Bénéfices & Marges</div><div class="feat-desc">Calcul automatique — savoir exactement ce qu'on gagne vraiment.</div></div>
+      <div class="feature-card"><div class="feat-icon">🏦</div><div class="feat-title">Trésorerie en temps réel</div><div class="feat-desc">Toujours savoir ce qu'il reste en caisse, sans calcul ni estimation.</div></div>
+      <div class="feature-card"><div class="feat-icon">📊</div><div class="feat-title">Tableau de bord visuel</div><div class="feat-desc">Graphiques et résumés clairs, lisibles d'un coup d'œil.</div></div>
+      <div class="feature-card"><div class="feat-icon">🤝</div><div class="feat-title">Dettes & Créances clients</div><div class="feat-desc">Ne plus oublier qui vous doit de l'argent, ni à qui vous devez.</div></div>
+      <div class="feature-card"><div class="feat-icon">📦</div><div class="feat-title">Suivi des Stocks</div><div class="feat-desc">Visualisez vos niveaux de stock pour anticiper les ruptures.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFER -->
+<section class="section" id="offre">
+  <div class="section-inner">
+    <div class="section-eyebrow">L'offre complète</div>
+    <h2 class="section-title">Pas juste un fichier — un vrai accompagnement</h2>
+    <p class="section-sub">Tout ce dont vous avez besoin pour démarrer et progresser, sans vous retrouver seul face à l'outil.</p>
+    <div class="includes-grid">
+      <div class="include-item"><div class="include-check">✓</div><div class="include-text">Accès immédiat au Financial Tool complet</div></div>
+      <div class="include-item"><div class="include-check">✓</div><div class="include-text">Configuration personnalisée à votre activité</div></div>
+      <div class="include-item"><div class="include-check">✓</div><div class="include-text">Sessions d'accompagnement régulières</div></div>
+      <div class="include-item"><div class="include-check">✓</div><div class="include-text">Support WhatsApp pendant toute la durée</div></div>
+      <div class="include-item"><div class="include-check">✓</div><div class="include-text">Visioconférence sur rendez-vous</div></div>
+      <div class="include-item"><div class="include-check">✓</div><div class="include-text">Résiliation libre, sans engagement long terme</div></div>
+      <div class="include-item"><div class="include-check">✓</div><div class="include-text">Contrat de prestation officiel fourni</div></div>
+      <div class="include-item"><div class="include-check">✓</div><div class="include-text">Confidentialité totale de vos données garantie</div></div>
+    </div>
+    <div class="guarantee">
+      <div class="guarantee-icon">🔒</div>
+      <div>
+        <h4>Vos données restent les vôtres. Point.</h4>
+        <p>Toutes les informations financières que vous saisissez dans le fichier sont strictement confidentielles. Je signe avec chaque client une Clause de Confidentialité légale — aucune réutilisation, aucune divulgation, aucune exception. Votre business reste votre business.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section alt" id="pricing">
+  <div class="section-inner">
+    <div class="section-eyebrow">Tarification</div>
+    <h2 class="section-title">Choisissez selon votre rythme</h2>
+    <div class="billing-toggle">
+      <button class="billing-btn active" id="btn-monthly" onclick="setBilling('monthly')">Mensuel</button>
+      <button class="billing-btn" id="btn-semi" onclick="setBilling('semi')">Semestriel <span style="color:var(--gold);font-size:11px">−10%</span></button>
+      <button class="billing-btn" id="btn-annual" onclick="setBilling('annual')">Annuel <span style="color:var(--gold);font-size:11px">−20%</span></button>
+    </div>
+    <div class="billing-note" id="billing-note"></div>
+    <div class="pricing-grid">
+      <div class="plan">
+        <div class="plan-name">Essentiel</div>
+        <div class="plan-price" id="price-essentiel">15 000</div>
+        <div class="plan-currency" id="currency-essentiel">FCFA / mois</div>
+        <div class="plan-divider"></div>
+        <div class="plan-feats">
+          <div class="plan-feat"><div class="plan-dot"></div>Accès au Financial Tool complet</div>
+          <div class="plan-feat"><div class="plan-dot"></div>2 sessions d'accompagnement / mois</div>
+          <div class="plan-feat"><div class="plan-dot"></div>Support WhatsApp (48h)</div>
+          <div class="plan-feat"><div class="plan-dot"></div>Configuration initiale incluse</div>
+        </div>
+        <div class="plan-target">Idéal pour commerçants & boutiques</div>
+      </div>
+      <div class="plan featured">
+        <div class="plan-badge">Le plus choisi</div>
+        <div class="plan-name">Standard</div>
+        <div class="plan-price" id="price-standard">25 000</div>
+        <div class="plan-currency" id="currency-standard">FCFA / mois</div>
+        <div class="plan-divider"></div>
+        <div class="plan-feats">
+          <div class="plan-feat"><div class="plan-dot"></div>Accès au Financial Tool complet</div>
+          <div class="plan-feat"><div class="plan-dot"></div>4 sessions d'accompagnement / mois</div>
+          <div class="plan-feat"><div class="plan-dot"></div>Support WhatsApp prioritaire (24h)</div>
+          <div class="plan-feat"><div class="plan-dot"></div>Analyse mensuelle de vos données</div>
+          <div class="plan-feat"><div class="plan-dot"></div>Configuration & personnalisation avancée</div>
+        </div>
+        <div class="plan-target">Idéal pour prestataires de services</div>
+      </div>
+      <div class="plan">
+        <div class="plan-name">Pro</div>
+        <div class="plan-price" id="price-pro">35 000</div>
+        <div class="plan-currency" id="currency-pro">FCFA / mois</div>
+        <div class="plan-divider"></div>
+        <div class="plan-feats">
+          <div class="plan-feat"><div class="plan-dot"></div>Tout le plan Standard</div>
+          <div class="plan-feat"><div class="plan-dot"></div>Accompagnement hebdomadaire</div>
+          <div class="plan-feat"><div class="plan-dot"></div>Générateur de factures pro inclus</div>
+          <div class="plan-feat"><div class="plan-dot"></div>Rapport mensuel de performance</div>
+          <div class="plan-feat"><div class="plan-dot"></div>Conseils de gestion personnalisés</div>
+        </div>
+        <div class="plan-target">Idéal pour TPE avec employés</div>
+      </div>
+    </div>
+    <p class="pricing-note">💡 Les tarifs sont indicatifs et peuvent être ajustés selon votre situation. Contactez-nous pour discuter d'une offre personnalisée.<br>Paiement mensuel à l'avance — résiliation libre avec 15 jours de préavis.</p>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="comment">
+  <div class="section-inner">
+    <div class="section-eyebrow">Comment ça marche</div>
+    <h2 class="section-title">Opérationnel en 48 heures</h2>
+    <p class="section-sub">Un processus simple, du premier contact à votre premier tableau de bord.</p>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-title">On se parle</div><div class="step-desc">WhatsApp ou visio — on comprend votre activité et on choisit le plan adapté.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-title">Contrat & paiement</div><div class="step-desc">Contrat officiel fourni. Paiement par Mobile Money (Flooz/T-Money) ou virement.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-title">Configuration</div><div class="step-desc">Le Financial Tool est configuré selon votre activité avec une session d'onboarding.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-title">Accompagnement</div><div class="step-desc">Je reste disponible pour vous guider, analyser vos données et répondre à vos questions.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo-row">
+          <div class="footer-logo-icon">📊</div>
+          <div class="footer-logo-text">FTBO <span>Financial</span></div>
+        </div>
+        <p>Un outil de gestion financière pensé pour les entrepreneurs togolais, avec un accompagnement humain à chaque étape.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigation</h5>
+        <a href="#features">Fonctionnalités</a>
+        <a href="#pricing">Tarifs</a>
+        <a href="#comment">Comment ça marche</a>
+        <a href="https://ftbo-invoices.vercel.app">Générateur de factures</a>
+      </div>
+      <div class="footer-cta-box">
+        <p>Prêt à savoir exactement où vous en êtes ?<br>Une discussion de 15 minutes suffit.</p>
+        <div class="footer-btns">
+          <a href="https://wa.me/22893127688" class="cta-btn">💬 WhatsApp</a>
+          <a href="mailto:amoussougk@gmail.com" class="cta-btn outline">✉️ Email</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Financial Tool for Business Owners · Lomé, République Togolaise · Conforme au droit togolais & Actes Uniformes OHADA</p>
+      <div class="footer-bottom-links">
+        <a href="https://ftbo-invoices.vercel.app/legal.html">CGU</a>
+        <a href="https://ftbo-invoices.vercel.app/legal.html#privacy">Confidentialité</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>40);});
+const prices={monthly:[15000,25000,35000],semi:[81000,135000,189000],annual:[144000,240000,336000]};
+const labels={monthly:'/mois',semi:'/ 6 mois',annual:'/ an'};
+const notes={monthly:null,semi:'💡 Paiement semestriel — 10% de réduction appliquée. Équivaut à 1 mois offert sur 6.',annual:'🎉 Paiement annuel — 20% de réduction appliquée. Équivaut à plus de 2 mois offerts sur 12.'};
+const ids=['essentiel','standard','pro'];
+function setBilling(type){
+  ['monthly','semi','annual'].forEach(t=>{document.getElementById('btn-'+t).classList.toggle('active',t===type);});
+  prices[type].forEach((p,i)=>{document.getElementById('price-'+ids[i]).textContent=p.toLocaleString('fr-FR');document.getElementById('currency-'+ids[i]).textContent='FCFA '+labels[type];});
+  const n=document.getElementById('billing-note');
+  if(notes[type]){n.textContent=notes[type];n.style.display='block';}else{n.style.display='none';}
+}
+</script>
+</body>
+</html>
